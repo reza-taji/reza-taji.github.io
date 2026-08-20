@@ -1,123 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>در حال به‌روزرسانی | نشر مکتب ابوتراب</title>
-    <!-- اضافه کردن فونت زیبای وزیرمتن از CDN -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-    
-    <style>
-        :root {
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --text-main: #1d1d1f;
-            --text-muted: #6e6e73;
-            --primary-color: #000000;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--bg-color);
-            font-family: 'Vazirmatn', sans-serif;
-            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .maintenance-container {
-            text-align: center;
-            background-color: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-            max-width: 450px;
-            width: 90%;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .logo {
-            max-width: 160px;
-            height: auto;
-            margin-bottom: 1.5rem;
-            /* اگر لوگو حاشیه سفید اضافی دارد می‌توانید با mix-blend-mode آن را در پس‌زمینه حل کنید */
-            mix-blend-mode: multiply; 
-        }
-
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-weight: 400;
-        }
-
-        .loader-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
-
-        .dot:nth-child(1) { animation-delay: -0.32s; }
-        .dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ریسپانسیو برای موبایل */
-        @media (max-width: 480px) {
-            .maintenance-container {
-                padding: 2.5rem 1.5rem;
-            }
-            h1 { font-size: 1.5rem; }
-            p { font-size: 0.95rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="maintenance-container">
-        <!-- آدرس فایل لوگو را در قسمت src جایگذاری کنید -->
-        <img src="logo.webp" alt="لوگو نشر مکتب ابوتراب" class="logo">
-        
-        <h1>سایت در حال به‌روزرسانی است</h1>
-        <p>همراه گرامی؛ در حال ارتقاء و بهبود زیرساخت‌های سایت «نشر مکتب ابوتراب» هستیم. به زودی با تجربه‌ای بهتر در خدمت شما خواهیم بود. از صبر و شکیبایی شما سپاسگزاریم.</p>
-        
-        <!-- انیمیشن ساده لودینگ -->
-        <div class="loader-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-    </div>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/webp" href="/logo.webp" />
+    <title>نشر مکتب ابوتراب</title>
+    <!-- Emotion insertion anchor: keeps RTL <style> tags below the font links -->
+    <meta id="emotion-insertion-point" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
