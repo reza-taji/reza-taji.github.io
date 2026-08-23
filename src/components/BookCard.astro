@@ -1,0 +1,50 @@
+---
+// BookCard.astro — cover, title, author, price, and the Bale buy CTA.
+// Pure static markup; the deep link is prebuilt at render time (no client JS).
+import type { CollectionEntry } from 'astro:content';
+import { PUBLISHER, buildBalePurchaseUrl, formatPrice } from '../config';
+
+interface Props {
+  book: CollectionEntry<'books'>;
+}
+
+const { book } = Astro.props;
+const { title, author, coverImage, price } = book.data;
+---
+
+<article
+  class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition duration-200 hover:-translate-y-1 hover:shadow-lg"
+>
+  <a href={`/books/${book.id}`} class="block" aria-label={`مشاهده جزئیات ${title}`}>
+    <img
+      src={coverImage}
+      alt={`جلد کتاب ${title}`}
+      width="600"
+      height="900"
+      loading="lazy"
+      decoding="async"
+      class="aspect-2/3 w-full bg-neutral-100 object-cover"
+    />
+  </a>
+
+  <div class="flex flex-1 flex-col gap-2 p-4">
+    <h3 class="text-lg font-bold leading-snug">
+      <a href={`/books/${book.id}`} class="transition hover:text-teal-700">{title}</a>
+    </h3>
+    <p class="text-sm text-neutral-500">{author}</p>
+
+    <p class="mt-auto pt-3 text-base font-semibold text-teal-700">
+      {formatPrice(price)}
+    </p>
+
+    <a
+      href={buildBalePurchaseUrl(title)}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#34d399] px-4 py-2.5 font-semibold text-neutral-900 transition hover:bg-[#2bc486]"
+      aria-label={`خرید کتاب ${title} از طریق بله`}
+    >
+      خرید از طریق بله
+    </a>
+  </div>
+</article>

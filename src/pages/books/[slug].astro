@@ -1,0 +1,121 @@
+---
+// books/[slug].astro — SEO-friendly static page per book, generated at build
+// time via getStaticPaths. Full details + Markdown body + Bale purchase CTA
+// + Book/Product JSON-LD.
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { PUBLISHER, buildBalePurchaseUrl, formatPrice } from '../../config';
+
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  return books.map((book) => ({
+    params: { slug: book.id },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+const { title, author, coverImage, description, price, publishYear, pages, isbn, translator } =
+  book.data;
+const { Content } = await render(book);
+
+const buyUrl = buildBalePurchaseUrl(title);
+const canonicalPath = `/books/${book.id}`;
+const site = Astro.site ?? new URL('https://abutorab-pub.ir');
+
+// Book + Offer (price) structured data — helps Google surface the title,
+// author, price and availability in rich results.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: title,
+  author: { '@type': 'Person', name: author },
+  ...(translator ? { translator: { '@type': 'Person', name: translator } } : {}),
+  ...(isbn ? { isbn } : {}),
+  numberOfPages: pages,
+  inLanguage: 'fa-IR',
+  description,
+  image: new URL(coverImage, site).href,
+  url: new URL(canonicalPath, site).href,
+  publisher: { '@type': 'Organization', name: PUBLISHER.name, url: site.href },
+  offers: {
+    '@type': 'Offer',
+    price,
+    priceCurrency: 'IRR',
+    availability: 'https://schema.org/InStock',
+    url: new URL(canonicalPath, site).href,
+  },
+};
+---
+
+<Layout title={title} description={description} image={coverImage} path={canonicalPath} schema={schema} type="book">
+  <div class="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
+    <nav aria-label="مسیر">
+      <a href="/books" class="inline-flex items-center gap-1 text-sm text-neutral-500 transition hover:text-neutral-900">
+        ← بازگشت به کتاب‌ها
+      </a>
+    </nav>
+
+    <div class="mt-6 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
+      <!-- Cover -->
+      <div class="md:col-span-1">
+        <img
+          src={coverImage}
+          alt={`جلد کتاب ${title}`}
+          width="600"
+          height="900"
+          class="w-full rounded-2xl border border-neutral-200 bg-neutral-100 object-cover shadow-md"
+        />
+      </div>
+
+      <!-- Details -->
+      <div class="md:col-span-2">
+        <p class="text-sm text-neutral-500">نشر مکتب ابوتراب · {new Intl.NumberFormat('fa-IR').format(publishYear)}</p>
+        <h1 class="mt-2 text-3xl font-extrabold leading-snug md:text-4xl">{title}</h1>
+        <p class="mt-2 text-lg text-neutral-600">
+          {author}{translator && ` · مترجم: ${translator}`}
+        </p>
+
+        <p class="mt-6 leading-loose text-neutral-800">{description}</p>
+
+        <!-- Spec table -->
+        <dl class="mt-6 divide-y divide-neutral-200 rounded-2xl border border-neutral-200">
+          {isbn && (
+            <div class="flex items-center justify-between px-4 py-3 text-sm">
+              <dt class="text-neutral-500">شناسه (ISBN)</dt>
+              <dd class="font-semibold" dir="ltr">{isbn}</dd>
+            </div>
+          )}
+          <div class="flex items-center justify-between px-4 py-3 text-sm">
+            <dt class="text-neutral-500">تعداد صفحات</dt>
+            <dd class="font-semibold">{new Intl.NumberFormat('fa-IR').format(pages)} صفحه</dd>
+          </div>
+          <div class="flex items-center justify-between px-4 py-3 text-sm">
+            <dt class="text-neutral-500">قیمت</dt>
+            <dd class="font-semibold">{formatPrice(price)}</dd>
+          </div>
+        </dl>
+
+        <!-- Bale purchase CTA -->
+        <div class="mt-8">
+          <a
+            href={buyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#34d399] px-8 py-4 text-lg font-bold text-neutral-900 transition hover:bg-[#2bc486] md:w-auto"
+          >
+            خرید از طریق بله
+          </a>
+          <p class="mt-2 text-xs text-neutral-500">
+            سفارش شما از طریق پیام‌رسان بله و با پیام آماده‌شده ثبت می‌شود.
+          </p>
+        </div>
+
+        <!-- Long description (Markdown body) -->
+        <div class="prose prose-neutral mt-10 max-w-none leading-loose">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

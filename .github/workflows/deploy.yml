@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Astro site to GitHub Pages
 
 on:
   push:
@@ -30,19 +30,27 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # Uses npm install (not npm ci) so the job works without a committed
+        # lock file. Once you commit package-lock.json, switch to `npm ci`
+        # for stricter reproducibility.
+        run: npm install --no-audit --no-fund
 
       - name: Build
         run: npm run build
-        # base path comes from vite.config.js ('/' for the custom domain).
-        # The CNAME in public/ is copied to dist/ automatically so GitHub
-        # Pages serves the site on abutorab-pub.ir.
 
-      - name: Verify SPA fallback
+      - name: Verify build output
+        # Fail fast in CI if any critical artifact is missing — much better
+        # than discovering a broken deployment after it's live.
         run: |
           test -f dist/index.html
           test -f dist/404.html
           test -f dist/CNAME
+          test -f dist/robots.txt
+          test -f dist/sitemap-index.xml
+          test -f dist/books/index.html
+          test -f dist/books/book-1/index.html
+          test -f dist/books/book-2/index.html
+          echo "✓ All critical build artifacts present"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

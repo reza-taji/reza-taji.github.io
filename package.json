@@ -1,0 +1,27 @@
+{
+  "name": "abutorab-pub-astro",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "نشر مکتب ابوتراب — Astro static book catalog (SSG, SEO-optimized)",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/vazirmatn": "^5.2.5",
+    "astro": "^5.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}

@@ -1,0 +1,68 @@
+---
+// index.astro — homepage: brand banner + full book grid.
+// All books are fetched from the content collection at BUILD time (SSG).
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import BookCard from '../components/BookCard.astro';
+
+const books = (await getCollection('books')).sort(
+  (a, b) => b.data.publishYear - a.data.publishYear,
+);
+---
+
+<Layout
+  title="کتاب‌هایی برای جان و اندیشه"
+  description="فهرست کتاب‌های نشر مکتب ابوتراب — آثار پژوهشی و فرهنگی. مرور و سفارش آسان از طریق پیام‌رسان بله."
+  path="/"
+>
+  <!-- Banner -->
+  <section class="bg-neutral-900 py-16 text-white md:py-24">
+    <div class="mx-auto max-w-3xl px-4 md:px-6">
+      <p class="text-sm font-medium tracking-widest text-teal-400">نشر مکتب ابوتراب</p>
+      <h1 class="mt-3 text-3xl font-extrabold leading-tight md:text-5xl">
+        کتاب‌هایی برای جان و اندیشه
+      </h1>
+      <p class="mt-4 text-lg leading-loose text-neutral-300">
+        مجموعه‌ای از آثار پژوهشی و فرهنگی. مرور فهرست و سفارش آسان از طریق پیام‌رسان بله.
+      </p>
+      <a
+        href="#books"
+        class="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 font-semibold text-white transition hover:bg-teal-700"
+      >
+        مشاهده کتاب‌ها
+      </a>
+    </div>
+  </section>
+
+  <!-- Book grid -->
+  <section id="books" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-12 md:px-6 md:py-16">
+    <div class="mb-8 flex items-end justify-between">
+      <h2 class="text-2xl font-bold md:text-3xl">کتاب‌ها</h2>
+      <p class="text-sm text-neutral-500">
+        {new Intl.NumberFormat('fa-IR').format(books.length)} عنوان
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {books.map((book) => <BookCard book={book} />)}
+    </div>
+  </section>
+
+  <!-- Contact anchor (footer nav links here) -->
+  <section id="contact" class="scroll-mt-20 bg-neutral-50 py-12">
+    <div class="mx-auto max-w-3xl px-4 text-center md:px-6">
+      <h2 class="text-2xl font-bold">تماس با ما</h2>
+      <p class="mt-3 leading-loose text-neutral-600">
+        برای سفارش، پرسش یا همکاری از طریق پیام‌رسان بله در ارتباط باشید.
+      </p>
+      <a
+        href="https://ble.ir/AbutorabSupport"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 inline-block rounded-full bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-700"
+      >
+        گفت‌وگو در بله
+      </a>
+    </div>
+  </section>
+</Layout>

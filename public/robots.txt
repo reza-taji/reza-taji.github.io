@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abutorab-pub.ir/sitemap-index.xml
