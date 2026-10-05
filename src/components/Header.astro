@@ -1,0 +1,36 @@
+---
+import { PUBLISHER } from '../config.ts';
+import { generalMessage, getBaleUrl } from '../utils/bale.ts';
+
+const links = [
+  { href: '/', label: 'صفحه اصلی' },
+  { href: '/submit-manuscript/', label: 'ارسال اثر و مؤلفین' },
+  { href: '/collaboration/', label: 'همکاری با ما' },
+  { href: '/#about', label: 'درباره انتشارات' },
+  { href: '/contact/', label: 'تماس با ما' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header">
+  <div class="site-container flex flex-wrap items-center justify-between gap-4 py-4">
+    <a href="/" class="flex items-center gap-3" aria-label="نشر مکتب ابوتراب، صفحه اصلی">
+      <img src={PUBLISHER.logoUrl} alt="" width="48" height="48" />
+      <span class="font-bold text-lg">{PUBLISHER.name}<span class="block text-xs font-normal text-neutral-500 mt-1">اندیشه، پژوهش، فرهنگ</span></span>
+    </a>
+    <nav aria-label="ناوبری اصلی" class="hidden xl:block">
+      <ul class="flex flex-wrap items-center gap-1">
+        {links.map(({ href, label }) => <li><a class="nav-link" href={href} aria-current={!href.includes('#') && currentPath === (href.replace(/\/$/, '') || '/') ? 'page' : undefined}>{label}</a></li>)}
+      </ul>
+    </nav>
+    <a href={getBaleUrl(generalMessage)} class="button button-bale text-sm" target="_blank" rel="noopener noreferrer">گفتگو در بله <span aria-hidden="true">↗</span></a>
+    <details class="mobile-nav w-full xl:hidden">
+      <summary>فهرست صفحات <span aria-hidden="true">＋</span></summary>
+      <nav aria-label="ناوبری موبایل" class="pt-3">
+        <ul class="grid gap-1 sm:grid-cols-2">
+          {links.map(({ href, label }) => <li><a class="nav-link block" href={href} aria-current={!href.includes('#') && currentPath === (href.replace(/\/$/, '') || '/') ? 'page' : undefined}>{label}</a></li>)}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { collaborationFields } from '../config.ts';
+import { collaborationMessage, getBaleUrl } from '../utils/bale.ts';
+---
+
+<Layout title="همکاری تخصصی با انتشارات" description="دعوت نشر مکتب ابوتراب به همکاری با ویراستاران، صفحه‌آرایان، طراحان جلد، مترجمان و پژوهشگران؛ معرفی تخصص و نمونه‌کار از طریق بله.">
+  <section class="page-heading">
+    <div class="site-container">
+      <p class="eyebrow">دعوت به همکاری</p>
+      <h1 class="section-title">مهارت شما،<br />همراه مسیر تازه نشر</h1>
+      <p class="section-copy max-w-2xl">برای ساختن آثاری دقیق، خواندنی و خوش‌ساخت، به همراهی متخصصان نشر نیاز داریم. اگر کیفیت و مسئولیت‌پذیری برای شما مهم است، مشتاق آشنایی هستیم.</p>
+    </div>
+  </section>
+  <div class="site-container section-space">
+    <section aria-labelledby="fields-title">
+      <h2 id="fields-title" class="text-2xl font-bold mb-6">زمینه‌های همکاری</h2>
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{collaborationFields.map((field) => <li class="panel"><span class="eyebrow" aria-hidden="true">✦</span><h3 class="mt-4 text-lg font-bold">{field}</h3></li>)}</ul>
+    </section>
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+      <section class="panel">
+        <h2 class="text-2xl font-bold">در معرفی خود چه بنویسید؟</h2>
+        <ul class="mt-5 list-disc list-inside space-y-3 leading-8">
+          <li>نام، زمینه تخصصی و تجربه مرتبط.</li>
+          <li>رزومه کوتاه و دو یا سه نمونه‌کار قابل ارائه.</li>
+          <li>ابزارها، زبان‌ها یا موضوعاتی که در آن‌ها مهارت دارید.</li>
+          <li>میزان زمان در دسترس و شیوه همکاری پیشنهادی.</li>
+        </ul>
+        <p class="section-copy text-sm">برای نمونه‌کارهای متعلق به دیگران، حقوق و محرمانگی پروژه را رعایت کنید.</p>
+      </section>
+      <section class="panel bg-teal-50">
+        <h2 class="text-2xl font-bold">فرهنگ همکاری ما</h2>
+        <p class="section-copy">شفافیت در شرح کار، بازخورد محترمانه و توافق درباره زمان‌بندی و حق‌الزحمه، مبنای همکاری است. نوع همکاری و شرایط هر پروژه با توافق طرفین تعیین خواهد شد.</p>
+        <p class="section-copy">این دعوت برای آشنایی و شکل‌گیری شبکه همکاران است و به معنای پیشنهاد استخدام یا تضمین پروژه نیست.</p>
+        <a class="button button-bale mt-6" href={getBaleUrl(collaborationMessage)} target="_blank" rel="noopener noreferrer">ارتباط بابت همکاری در بله ↗</a>
+      </section>
+    </div>
+  </div>
+</Layout>

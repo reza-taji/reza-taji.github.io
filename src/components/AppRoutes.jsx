@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { LocaleGuard } from '../hooks/useLocale.js';
 import { isSupportedLang } from '../i18n/index.js';
-import HomePage from '../pages/HomePage.jsx';
-import BookCatalog from '../pages/BookCatalog.jsx';
-import BookDetail from '../pages/BookDetail.jsx';
-import Contact from '../pages/Contact.jsx';
+import HomePage from '../pages/_HomePage.jsx';
+import BookCatalog from '../pages/_BookCatalog.jsx';
+import BookDetail from '../pages/_BookDetail.jsx';
+import Contact from '../pages/_Contact.jsx';
 
 // Redirects an unknown sub-path of a locale (e.g. /ar/foo) to that locale's
 // home, so broken deep links fall back gracefully instead of 404-ing.

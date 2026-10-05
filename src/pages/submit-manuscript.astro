@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { publishingFields, submissionSteps } from '../config.ts';
+import { authorMessage, getBaleUrl } from '../utils/bale.ts';
+---
+
+<Layout title="ارسال اثر و ارتباط با مؤلفین" description="راهنمای ارسال طرح، تألیف و ترجمه به نشر مکتب ابوتراب؛ قالب فایل، چکیده، اطلاعات پدیدآورنده و مراحل بررسی اثر از طریق پیام‌رسان بله.">
+  <section class="page-heading">
+    <div class="site-container">
+      <p class="eyebrow">همراه مؤلفین و مترجمان</p>
+      <h1 class="section-title">گفتگو درباره اثر شما،<br />از همین‌جا آغاز می‌شود.</h1>
+      <p class="section-copy max-w-2xl">اگر ایده، پیش‌نویس یا اثری آماده دارید، پیش از ارسال فایل کامل، معرفی کوتاه آن را در بله با ما در میان بگذارید.</p>
+    </div>
+  </section>
+  <div class="site-container section-space grid gap-8 lg:grid-cols-[1.5fr_1fr]">
+    <div class="space-y-8">
+      <section class="panel">
+        <h2 class="text-2xl font-bold">چه آثاری را بررسی می‌کنیم؟</h2>
+        <ul class="list-disc list-inside mt-5 space-y-3">{publishingFields.map((field) => <li>{field}</li>)}</ul>
+        <p class="mt-5 text-neutral-600 leading-8">برای موضوعات نزدیک به این حوزه‌ها نیز می‌توانید ابتدا طرح خود را معرفی کنید. تناسب اثر با برنامه نشر در بررسی اولیه مشخص می‌شود.</p>
+      </section>
+      <section class="panel">
+        <h2 class="text-2xl font-bold">برای معرفی اولیه چه بفرستیم؟</h2>
+        <ul class="mt-5 list-disc list-inside space-y-4 leading-8">
+          <li>نام و نام خانوادگی، زمینه تخصصی و راه ارتباطی مؤلف یا مترجم.</li>
+          <li>عنوان پیشنهادی، موضوع، مخاطبان و وضعیت فعلی اثر.</li>
+          <li>چکیده‌ای حدود ۳۰۰ تا ۵۰۰ واژه درباره مسئله، ساختار و ویژگی‌های اثر.</li>
+          <li>فهرست مطالب و یک فصل یا حدود ۱۰ تا ۲۰ صفحه نمونه.</li>
+          <li>حجم تقریبی اثر و در صورت ترجمه، مشخصات کتاب اصلی و وضعیت اجازه ترجمه.</li>
+        </ul>
+      </section>
+      <section class="panel">
+        <h2 class="text-2xl font-bold">قالب فایل و نکات ارسال</h2>
+        <p class="section-copy">متن را ترجیحاً با قالب <bdi dir="ltr">DOCX</bdi> و نسخه خواندنی <bdi dir="ltr">PDF</bdi> آماده کنید. نام فایل شامل عنوان اثر و نام پدیدآورنده باشد. برای شروع، اطلاعات اولیه و نمونه متن کافی است؛ ارسال نسخه کامل پس از هماهنگی انجام می‌شود.</p>
+        <p class="section-copy">اطلاعات حساس شخصی را در معرفی اولیه نفرستید. درباره فایل‌های حجیم، شیوه ارسال را ابتدا در گفتگو هماهنگ کنید.</p>
+      </section>
+    </div>
+    <aside class="space-y-6">
+      <section class="panel bg-teal-50">
+        <h2 class="text-xl font-bold">مراحل همراهی</h2>
+        <ol class="mt-6 space-y-6">{submissionSteps.map((step, index) => <li><h3 class="font-bold">{new Intl.NumberFormat('fa-IR').format(index + 1)}. {step.title}</h3><p class="mt-2 text-sm leading-7 text-neutral-600">{step.text}</p></li>)}</ol>
+        <a class="button button-bale mt-7" href={getBaleUrl(authorMessage)} target="_blank" rel="noopener noreferrer">ارسال اثر در بله ↗</a>
+      </section>
+      <p class="px-3 text-sm leading-8 text-neutral-600">ارسال اثر به معنای پذیرش یا انعقاد قرارداد نیست. زمان بررسی، شرایط انتشار و حقوق طرفین پس از گفتگو و ارزیابی مشخص خواهد شد.</p>
+    </aside>
+  </div>
+</Layout>

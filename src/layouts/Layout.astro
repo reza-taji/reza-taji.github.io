@@ -1,19 +1,32 @@
 ---
-// Layout.astro — RTL HTML5 shell shared by every page. Includes the SEO head,
-// global stylesheet, site header (logo + nav) and footer (Bale channel).
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import { PUBLISHER, SITE_DESCRIPTION, SITE_TITLE } from '../config.ts';
+import { generalMessage, getBaleUrl } from '../utils/bale.ts';
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   image?: string;
   path?: string;
-  schema?: object | object[];
-  type?: 'website' | 'book';
+  noindex?: boolean;
 }
 
-const props = Astro.props;
+const { title = SITE_TITLE, description = SITE_DESCRIPTION, image, path = Astro.url.pathname, noindex = false } = Astro.props;
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${PUBLISHER.site}/#organization`,
+  name: PUBLISHER.name,
+  alternateName: ['Matpub', 'Abutorab Pub'],
+  url: PUBLISHER.site,
+  logo: new URL(PUBLISHER.logoUrl, PUBLISHER.site).href,
+  description: SITE_DESCRIPTION,
+  ...(PUBLISHER.email ? { email: PUBLISHER.email } : {}),
+  ...(PUBLISHER.phone ? { telephone: PUBLISHER.phone } : {}),
+  ...(PUBLISHER.baleChannelUrl ? { sameAs: [PUBLISHER.baleChannelUrl] } : {}),
+};
 ---
 
 <!doctype html>
@@ -21,58 +34,38 @@ const props = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/webp" href="/logo.webp" />
+    <link rel="icon" type="image/svg+xml" href={PUBLISHER.logoUrl} />
     <meta name="generator" content={Astro.generator} />
-    <SEO {...props} />
+    <SEO title={title} description={description} image={image} path={path} schema={organization} noindex={noindex} />
   </head>
-  <body class="flex min-h-screen flex-col bg-white text-neutral-900">
-    <!-- Header -->
-    <header class="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur">
-      <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 md:h-18 md:px-6">
-        <a href="/" class="flex items-center gap-2 text-neutral-900">
-          <img src="/logo.webp" alt="لوگوی نشر مکتب ابوتراب" width="40" height="40" class="object-contain" />
-          <span class="hidden text-lg font-bold sm:inline">نشر مکتب ابوتراب</span>
-        </a>
-        <nav aria-label="ناوبری اصلی">
-          <ul class="flex items-center gap-1 text-sm font-medium md:gap-2">
-            <li><a class="rounded-full px-3 py-2 transition hover:bg-neutral-100" href="/">خانه</a></li>
-            <li><a class="rounded-full px-3 py-2 transition hover:bg-neutral-100" href="/books">کتاب‌ها</a></li>
-            <li><a class="rounded-full px-3 py-2 transition hover:bg-neutral-100" href="/#contact">تماس</a></li>
+  <body>
+    <a class="skip-link" href="#main-content">رفتن به محتوای اصلی</a>
+    <Header />
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="site-container grid gap-10 py-14 md:grid-cols-3">
+        <div>
+          <a href="/" class="flex items-center gap-3 font-bold text-xl"><img src={PUBLISHER.logoUrl} alt="" width="44" height="44" />{PUBLISHER.name}</a>
+          <p class="mt-5 text-sm leading-8 text-white/70">مسیر تازه‌ای برای پیوند اندیشه و خواننده؛ همراه نویسندگان، مترجمان و خانواده نشر.</p>
+        </div>
+        <nav aria-label="پیوندهای پاورقی">
+          <h2 class="font-bold">همراه نشر</h2>
+          <ul class="mt-4 space-y-3 text-sm text-white/75">
+            <li><a href="/submit-manuscript/">ارسال اثر و مؤلفین</a></li>
+            <li><a href="/collaboration/">همکاری با ما</a></li>
+            <li><a href="/#about">درباره انتشارات</a></li>
+            <li><a href="/contact/">تماس با ما</a></li>
           </ul>
         </nav>
-      </div>
-    </header>
-
-    <!-- Page content -->
-    <main class="flex-1">
-      <slot />
-    </main>
-
-    <!-- Footer -->
-    <footer class="mt-auto bg-neutral-900 py-8 text-neutral-100">
-      <div class="mx-auto max-w-6xl px-4 md:px-6">
-        <div class="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-right">
-          <div>
-            <p class="font-semibold">نشر مکتب ابوتراب</p>
-            <p class="text-sm text-neutral-400">تمامی حقوق محفوظ است.</p>
-          </div>
-          <nav aria-label="پیوندهای پاورقی">
-            <ul class="flex flex-wrap justify-center gap-6 text-sm">
-              <li><a class="transition hover:text-white" href="/">خانه</a></li>
-              <li><a class="transition hover:text-white" href="/books">کتاب‌ها</a></li>
-              <li>
-                <a class="transition hover:text-white" href="https://ble.ir/AbutorabChannel" target="_blank" rel="noopener noreferrer">
-                  کانال بله
-                </a>
-              </li>
-            </ul>
-          </nav>
+        <div>
+          <h2 class="font-bold">در ارتباط بمانیم</h2>
+          <a href={getBaleUrl(generalMessage)} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm text-emerald-300">گفتگو در بله ↗</a>
+          {PUBLISHER.baleChannelUrl ? <a href={PUBLISHER.baleChannelUrl} target="_blank" rel="noopener noreferrer" class="mt-3 block text-sm text-white/75">کانال رسمی بله ↗</a> : <p class="mt-3 text-sm text-white/60">کانال رسمی: به‌زودی</p>}
+          {PUBLISHER.email && <a class="mt-3 block text-sm" href={`mailto:${PUBLISHER.email}`}><bdi>{PUBLISHER.email}</bdi></a>}
+          {PUBLISHER.phone && <a class="mt-3 block text-sm" href={`tel:${PUBLISHER.phone}`}><bdi>{PUBLISHER.phone}</bdi></a>}
         </div>
-        <hr class="my-6 border-neutral-700" />
-        <p class="text-center text-xs text-neutral-500">
-          © {new Date().getFullYear()} نشر مکتب ابوتراب
-        </p>
       </div>
+      <div class="site-container border-t border-white/15 py-6 text-sm text-white/60">© {new Intl.DateTimeFormat('fa-IR', { year: 'numeric' }).format(new Date())} نشر مکتب ابوتراب. تمامی حقوق محفوظ است.</div>
     </footer>
   </body>
 </html>

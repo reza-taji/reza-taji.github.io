@@ -1,25 +1,20 @@
-// Shared constants & helpers for the Astro site (single source of truth).
-
 export const PUBLISHER = {
   name: 'نشر مکتب ابوتراب',
-  // Bale support ID — purchase deep links land in this account's chat.
-  baleSupportId: 'AbutorabSupport',
-  // Public Bale channel for the footer link.
-  baleChannelUrl: 'https://ble.ir/AbutorabChannel',
+  site: 'https://abutorab-pub.ir',
   logoUrl: '/logo.webp',
+  baleChannelUrl: 'MaktabeAbutorab_Admin',
+  email: 'reza.taji@gmail.com',
+  phone: '09358370480',
 };
 
-// Persian-digit Toman formatter. Kept framework-agnostic so both .astro
-// components and any React islands can use it.
-export function formatPrice(toman: number): string {
-  return `${new Intl.NumberFormat('fa-IR').format(toman)} تومان`;
-}
+export const SITE_TITLE = 'نشر مکتب ابوتراب - ناشر تخصصی کتب علمی و فرهنگی | ارسال اثر و همکاری با نویسندگان';
+export const SITE_DESCRIPTION = 'نشر مکتب ابوتراب؛ خانه‌ای برای اندیشه، پژوهش و فرهنگ. آشنایی با نشر، ارسال اثر برای بررسی و دعوت به همکاری از نویسندگان، مترجمان و متخصصان نشر از طریق بله.';
 
-// Build the Bale messenger deep link with a pre-filled purchase request.
-// The `text` param is URL-encoded so the Persian message survives the
-// hand-off into the Bale app's compose box.
-export function buildBalePurchaseUrl(bookTitle: string): string {
-  const message = `سلام، من قصد خرید کتاب «${bookTitle}» را دارم.`;
-  const encoded = encodeURIComponent(message);
-  return `https://ble.ir/${PUBLISHER.baleSupportId}?text=${encoded}`;
-}
+export const publishingFields = ['پژوهش‌های علمی و انسانی', 'مطالعات فرهنگی و اجتماعی', 'اندیشه و معارف اسلامی', 'ترجمه آثار علمی و فرهنگی'];
+export const collaborationFields = ['ویراستاری علمی و ادبی', 'صفحه‌آرایی و آماده‌سازی چاپ', 'طراحی جلد و هویت بصری', 'ترجمه و ارزیابی ترجمه', 'پژوهش و ارزیابی علمی آثار'];
+export const submissionSteps = [
+  { title: 'ارسال طرح یا پیش‌نویس', text: 'معرفی کوتاه اثر، چکیده و نمونه متن را برای آغاز گفتگو ارسال کنید.' },
+  { title: 'داوری و ارزیابی', text: 'تناسب موضوع و کیفیت علمی و نگارشی اثر بررسی و نتیجه به شما اعلام می‌شود.' },
+  { title: 'عقد قرارداد', text: 'در صورت پذیرش، حقوق طرفین و شرایط همکاری با توافق مکتوب مشخص می‌شود.' },
+  { title: 'چاپ و نشر', text: 'پس از ویرایش، آماده‌سازی و طی مراحل لازم، اثر برای انتشار آماده می‌شود.' },
+];

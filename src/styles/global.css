@@ -1,20 +1,68 @@
-/* Global styles for the Astro site.
-   NOTE: do NOT @import Tailwind here — the @astrojs/tailwind integration
-   injects its own base/components/utilities layers automatically. Importing
-   again causes a duplicate/postcss crash. Only fonts + custom rules live here. */
+@import 'tailwindcss';
 @import '@fontsource/vazirmatn/400.css';
 @import '@fontsource/vazirmatn/500.css';
 @import '@fontsource/vazirmatn/600.css';
 @import '@fontsource/vazirmatn/700.css';
 @import '@fontsource/vazirmatn/800.css';
 
-html {
-  direction: rtl;
+@theme {
+  --font-sans: 'Vazirmatn', Tahoma, sans-serif;
 }
 
-body {
-  font-family: 'Vazirmatn', Tahoma, sans-serif;
-  background-color: #ffffff;
-  color: #1f1f1f;
-  -webkit-font-smoothing: antialiased;
+:root { color-scheme: light; --ink: #123d37; --paper: #faf8f3; }
+html { direction: rtl; scroll-behavior: smooth; scroll-padding-top: 11rem; }
+body { margin: 0; font-family: 'Vazirmatn', Tahoma, sans-serif; background: var(--paper); color: #202d2a; -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; flex-direction: column; line-height: 1.8; }
+main { flex: 1; }
+* { box-sizing: border-box; }
+::selection { background: #cde5db; color: var(--ink); }
+:focus-visible { outline: 3px solid #0f766e; outline-offset: 5px; border-radius: 4px; }
+.site-container { width: min(100% - 3rem, 76rem); margin-inline: auto; }
+.section-space { padding-block: 5rem; }
+.site-header { position: sticky; top: 0; z-index: 40; background: #faf8f3f5; border-bottom: 1px solid #123d3714; backdrop-filter: blur(14px); }
+.nav-link { padding: .65rem .7rem; border-radius: .6rem; font-size: .85rem; transition: background .2s; }
+.nav-link:hover, .nav-link[aria-current='page'] { background: #123d370d; color: #0b5b4f; }
+.mobile-nav summary { cursor: pointer; display: flex; justify-content: space-between; padding-block: .5rem; font-size: .9rem; border-top: 1px solid #123d371a; }
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.site-header:has(.mobile-nav[open]) { position: relative; }
+.mobile-nav[open] summary span { transform: rotate(45deg); }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .85rem 1.3rem; min-height: 48px; border: 1px solid transparent; border-radius: .7rem; font-weight: 600; line-height: 1.8; text-align: center; transition: background .2s, color .2s; }
+.button-primary { background: var(--ink); color: white; }
+.button-primary:hover { background: #0b5b4f; }
+.button-outline { border-color: #123d3740; color: var(--ink); }
+.button-outline:hover { background: #123d370a; }
+.button-bale { background: #34d399; color: #073629; }
+.button-bale:hover { background: #6ee7b7; }
+.button-light-outline { color: white; border-color: #ffffff50; }
+.button-light-outline:hover { background: #ffffff12; }
+.hero-section { background: radial-gradient(ellipse at 12% 30%, #e9e4d6 0, transparent 60%); border-bottom: 1px solid #123d3714; }
+.eyebrow { color: #0b6558; font-size: .8rem; font-weight: 600; }
+.section-title { margin-top: 1rem; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.7; }
+.section-copy { margin-top: 1.2rem; color: #53615b; line-height: 2.2; }
+.panel { border: 1px solid #123d371a; border-radius: 1.2rem; padding: 2rem; }
+.text-link { color: #0c6659; font-weight: 600; text-decoration: underline; text-underline-offset: .35em; }
+.step-number { display: inline-grid; place-items: center; width: 2.3rem; height: 2.3rem; background: #e5eee7; color: var(--ink); border-radius: 50%; font-weight: 700; }
+.collaboration-section, .site-footer { background: var(--ink); color: white; }
+.collaboration-section .eyebrow { color: #6ee7b7; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: .3em; }
+.site-footer :focus-visible, .collaboration-section :focus-visible { outline-color: #6ee7b7; }
+.brand-art { position: relative; padding: 2rem 1.5rem; text-align: center; }
+.brand-art-inner { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 390px; padding: 3rem 2rem; color: #f1e7d0; background: var(--ink); border-radius: 48% 48% 1rem 1rem; outline: 1px solid #b7a070; outline-offset: 10px; box-shadow: 0 24px 65px #123d3720; }
+.brand-art-inner::before { content: ''; position: absolute; inset: 1.3rem; border: 1px solid #d1b78045; border-radius: inherit; pointer-events: none; }
+.art-mark { margin-block: 2rem 1rem; font-size: clamp(2.4rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.8; }
+.art-mark span { font-size: .6em; font-weight: 500; }
+.art-line { width: 60px; height: 1px; background: #cbb17b; margin-block: 1rem 1.5rem; }
+.art-caption { display: block; margin-top: 2rem; color: #69726b; font-size: .8rem; }
+.page-heading { padding-block: 4rem; background: #eeeee3; border-bottom: 1px solid #123d3714; }
+.skip-link { position: fixed; top: .7rem; inset-inline-start: 1rem; z-index: 60; padding: .8rem 1rem; background: white; color: var(--ink); transform: translateY(-200%); border-radius: .5rem; }
+.skip-link:focus { transform: translateY(0); }
+@media (max-width: 640px) {
+  .site-container { width: min(100% - 2rem, 76rem); }
+  .section-space { padding-block: 3.5rem; }
+  .panel { padding: 1.4rem; }
+  .brand-art-inner { min-height: 320px; }
+  .site-header .button { padding: .65rem .8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
 }

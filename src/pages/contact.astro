@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactCards from '../components/ContactCards.astro';
+import { generalMessage, getBaleUrl } from '../utils/bale.ts';
+---
+
+<Layout title="تماس با ما و گفتگو در بله" description="راه‌های ارتباط با نشر مکتب ابوتراب؛ گفتگو درباره ارسال اثر، همکاری تخصصی و پرسش‌های عمومی در پیام‌رسان بله.">
+  <section class="page-heading">
+    <div class="site-container">
+      <p class="eyebrow">راه‌های ارتباطی</p>
+      <h1 class="section-title">یک پیام،<br />آغاز یک گفتگوی تازه</h1>
+      <p class="section-copy max-w-2xl">برای معرفی اثر، پیشنهاد همکاری یا پرسش درباره نشر، از طریق بله با ما در ارتباط باشید. ایمیل، شماره تماس و کانال رسمی پس از نهایی‌شدن در این صفحه اعلام می‌شود.</p>
+      <a class="button button-bale mt-7" href={getBaleUrl(generalMessage)} target="_blank" rel="noopener noreferrer">گفتگو در بله ↗</a>
+    </div>
+  </section>
+  <section class="site-container section-space" aria-label="کانال‌های ارتباط">
+    <ContactCards />
+    <p class="mt-8 text-sm leading-8 text-neutral-600">هنگام ارسال پیام، موضوع گفتگو و معرفی کوتاهی از خود بنویسید تا ارتباط روشن‌تر و پیگیری آسان‌تر باشد.</p>
+  </section>
+</Layout>

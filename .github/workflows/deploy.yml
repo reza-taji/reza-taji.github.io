@@ -26,14 +26,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
-        # Uses npm install (not npm ci) so the job works without a committed
-        # lock file. Once you commit package-lock.json, switch to `npm ci`
-        # for stricter reproducibility.
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-fund
 
       - name: Build
         run: npm run build
@@ -47,9 +44,10 @@ jobs:
           test -f dist/CNAME
           test -f dist/robots.txt
           test -f dist/sitemap-index.xml
-          test -f dist/books/index.html
-          test -f dist/books/book-1/index.html
-          test -f dist/books/book-2/index.html
+          test -f dist/submit-manuscript/index.html
+          test -f dist/collaboration/index.html
+          test -f dist/contact/index.html
+          test ! -d dist/books
           echo "✓ All critical build artifacts present"
 
       - name: Upload artifact
