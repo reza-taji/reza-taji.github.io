@@ -10,7 +10,7 @@ import { BALE_ID, generalMessage, getBaleUrl } from '../utils/bale.ts';
     <p class="mt-3 text-neutral-600">برای ارسال اثر، معرفی تخصص یا پرسش درباره نشر، گفتگو را از اینجا آغاز کنید.</p>
     <p class="mt-3"><bdi dir="ltr">@{BALE_ID}</bdi></p>
     <a class="text-link mt-5 inline-block" href={getBaleUrl(generalMessage)} target="_blank" rel="noopener noreferrer">گفتگو در بله ↗</a>
-    {PUBLISHER.baleChannelUrl ? <a class="text-link mt-3 block" href={PUBLISHER.baleChannelUrl} target="_blank" rel="noopener noreferrer">کانال رسمی نشر ↗</a> : <p class="mt-3 text-sm text-neutral-500">نشانی کانال رسمی به‌زودی اعلام می‌شود.</p>}
+    {PUBLISHER.baleChannelPageUrl ? <a class="text-link mt-3 block" href={PUBLISHER.baleChannelPageUrl} target="_blank" rel="noopener noreferrer">کانال رسمی نشر ↗</a> : <p class="mt-3 text-sm text-neutral-500">نشانی کانال رسمی به‌زودی اعلام می‌شود.</p>}
   </article>
   <article class="panel">
     <span class="eyebrow">مکاتبات نشر</span>

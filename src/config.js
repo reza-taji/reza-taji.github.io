@@ -10,7 +10,7 @@ export const PUBLISHER = {
   baleSupportUrl: 'https://ble.ir/MaktabeAbutorab_Admin',
   // Public Bale channel for the footer link.
   baleChannelUrl: 'https://ble.ir/MaktabeAbutorab',
-  logoUrl: '/logo.webp',
+  logoUrl: '/logo.png',
 };
 
 // Number-format locale per UI language — controls native digit rendering.

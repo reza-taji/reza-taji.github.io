@@ -3,8 +3,9 @@ export const PUBLISHER = {
   site: 'https://abutorab-pub.ir',
   logoUrl: '/logo.webp',
   baleChannelUrl: 'MaktabeAbutorab_Admin',
-  email: 'reza.taji@gmail.com',
-  phone: '09358370480',
+  baleChannelPageUrl: 'https://ble.ir/MaktabeAbutorab',
+  email: 'rezatj@iran.ir',
+  phone: '09966992297',
 };
 
 export const SITE_TITLE = 'نشر مکتب ابوتراب - ناشر تخصصی کتب علمی و فرهنگی | ارسال اثر و همکاری با نویسندگان';
