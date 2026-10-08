@@ -1,7 +1,7 @@
 export const PUBLISHER = {
   name: 'نشر مکتب ابوتراب',
   site: 'https://abutorab-pub.ir',
-  logoUrl: '/logo.webp',
+  logoUrl: '/logo.png',
   baleChannelUrl: 'MaktabeAbutorab_Admin',
   baleChannelPageUrl: 'https://ble.ir/MaktabeAbutorab',
   email: 'rezatj@iran.ir',
